@@ -1,4 +1,3 @@
-import { EventEmitter } from 'events';
 import { vi } from 'vitest';
 
 export class MockConnection {

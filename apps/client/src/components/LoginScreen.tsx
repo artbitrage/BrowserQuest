@@ -33,7 +33,6 @@ export const LoginScreen = ({ onPlay }: LoginScreenProps) => {
               onChange={(e) => setName(e.target.value)}
               className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-all"
               placeholder="Enter your name..."
-              autoFocus
             />
           </div>
 

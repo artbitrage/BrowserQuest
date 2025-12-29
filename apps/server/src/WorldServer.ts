@@ -68,7 +68,7 @@ export class WorldServer {
         if (player.lastCheckpoint) {
           return player.lastCheckpoint.getRandomPosition();
         }
-        return this.map!.getRandomStartingPosition();
+        return this.map?.getRandomStartingPosition();
       });
 
       player.onHello(() => {
@@ -233,7 +233,7 @@ export class WorldServer {
   }
 
   pushRelevantEntityListTo(player: Player) {
-    if (player && player.group && player.group in this.groups) {
+    if (player?.group && player.group in this.groups) {
       const entities = Object.keys(this.groups[player.group].entities)
         .filter((id) => id !== player.id.toString())
         .map((id) => Number.parseInt(id));
@@ -453,7 +453,7 @@ export class WorldServer {
   }
 
   broadcastAttacker(character: Character) {
-    if (character && character.group) {
+    if (character?.group) {
       this.pushToAdjacentGroups(
         character.group,
         new Messages.Attack(character.id as number, character.target as number),
@@ -615,7 +615,7 @@ export class WorldServer {
 
   removeFromGroups(entity: Entity) {
     const oldGroups: string[] = [];
-    if (entity && entity.group) {
+    if (entity?.group) {
       const group = this.groups[entity.group];
       if (entity instanceof Player) {
         group.players = group.players.filter((id) => id !== entity.id);

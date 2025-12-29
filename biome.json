@@ -12,15 +12,27 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "warn",
-        "noDoubleEquals": "warn"
+        "noDoubleEquals": "warn",
+        "noArrayIndexKey": "warn",
+        "noConfusingVoidType": "warn",
+        "noEmptyBlockStatements": "warn",
+        "noConsole": "off"
       },
       "style": {
         "useImportType": "warn",
         "useExportType": "warn",
-        "noNonNullAssertion": "warn"
+        "noNonNullAssertion": "warn",
+        "noParameterAssign": "warn",
+        "useDefaultParameterLast": "warn"
       },
       "correctness": {
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "useExhaustiveDependencies": "warn",
+        "noUnusedVariables": "warn"
+      },
+      "complexity": {
+        "noBannedTypes": "warn",
+        "noForEach": "warn"
       }
     }
   },

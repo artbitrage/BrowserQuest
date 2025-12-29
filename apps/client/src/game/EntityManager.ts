@@ -1,5 +1,4 @@
 import { Orientation } from '@bq/shared';
-import type { Game } from './Game';
 import { Log } from './Log';
 
 export interface Entity {
@@ -15,10 +14,6 @@ export class EntityManager {
   // private game: Game;
   public entities: Map<number | string, Entity> = new Map();
   public playerId: number | string | null = null;
-
-  constructor(_game: Game) {
-    // this.game = game;
-  }
 
   public addEntity(id: number | string, kind: number, x: number, y: number) {
     if (this.entities.has(id)) {

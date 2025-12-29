@@ -95,7 +95,7 @@ describe('Game Loop Integration', () => {
 
   it('should handle player connection and WELCOME handshake', () => {
     const conn1 = new MockConnection('p1');
-    server.connections['p1'] = conn1;
+    server.connections.p1 = conn1;
     const player = new Player(conn1 as any, world);
 
     // 1. Add Player
@@ -125,7 +125,7 @@ describe('Game Loop Integration', () => {
 
   it('should handle player movement', () => {
     const conn1 = new MockConnection('p1');
-    server.connections['p1'] = conn1;
+    server.connections.p1 = conn1;
     const player = new Player(conn1 as any, world);
 
     world.addPlayer(player);

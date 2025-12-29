@@ -70,7 +70,8 @@ export class Game {
     // Log.info('Game received:', message);
 
     switch (type) {
-      case MessageType.WELCOME: // WELCOME
+      case MessageType.WELCOME: {
+        // WELCOME
         // [0, id, name, x, y, kind]
         const id = message[1];
         const name = message[2];
@@ -82,6 +83,7 @@ export class Game {
         Log.info('Welcome received', name);
         this.emit('welcome', { id, name, x, y, kind });
         break;
+      }
       case MessageType.SPAWN: // SPAWN
         this.entities.addEntity(message[1], message[2], message[3], message[4]);
         break;

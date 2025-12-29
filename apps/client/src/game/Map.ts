@@ -1,4 +1,3 @@
-import type { Game } from './Game';
 import { Log } from './Log';
 
 export class Map {
@@ -9,10 +8,6 @@ export class Map {
   public data: any = null;
   public loaded = false;
   private collisionSet: Set<number> = new Set();
-
-  constructor(_game: Game) {
-    // this.game = _game;
-  }
 
   public async load(url: string) {
     try {
