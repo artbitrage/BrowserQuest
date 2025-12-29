@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "biomejs.biome",
+    "bradlc.vscode-tailwindcss",
+    "dsznajder.es7-react-js-snippets",
+    "ms-azuretools.vscode-docker",
+    "vitest.explorer",
+    "yoavbls.pretty-ts-errors",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}
