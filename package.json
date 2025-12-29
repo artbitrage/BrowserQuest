@@ -1,14 +1,21 @@
 {
-    "name": "BrowserQuest"
-  , "version": "0.0.1"
-  , "private": false 
-  , "dependencies": {
-    "underscore": ">0"
-    , "log": ">0"
-    , "bison": ">0"
-    , "websocket": ">0"
-    , "websocket-server": ">0"
-    , "sanitizer": ">0"
-    , "memcache": ">0"
+  "name": "browserquest-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Modernized BrowserQuest with bleeding edge tech stack",
+  "workspaces": ["apps/*", "packages/*"],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
   }
 }
