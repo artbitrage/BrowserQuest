@@ -52,24 +52,27 @@ export class Player extends Character {
                     if (this.actionCallback)
                         this.actionCallback();
                     break;
-                case MessageType.ATTACK:
+                case MessageType.ATTACK: {
                     const mobId = message[1];
                     this.world.handleMobHate(mobId, this.id, 5);
                     this.world.handleHurtEntity(this.world.getEntityById(mobId), this, getWeaponLevel(this.weapon));
                     break;
-                case MessageType.HIT:
+                }
+                case MessageType.HIT: {
                     const entityId = message[1];
                     const entity = this.world.getEntityById(entityId);
                     if (entity && entity instanceof Character) {
                         this.world.handleHurtEntity(entity, this, getWeaponLevel(this.weapon));
                     }
                     break;
-                case MessageType.CHAT:
+                }
+                case MessageType.CHAT: {
                     const msg = message[1];
                     if (msg && this.broadcastCallback) {
                         this.broadcastCallback(new Messages.Chat(this.id, msg), false);
                     }
                     break;
+                }
                 case MessageType.WHO:
                     this.connection.send([MessageType.WHO, this.world.playerCount]);
                     break;

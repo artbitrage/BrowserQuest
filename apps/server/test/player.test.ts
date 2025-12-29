@@ -1,7 +1,21 @@
 import { EntityKind, MessageType } from '@bq/shared';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Player } from '../src/player';
+import { Player } from '../src/world/entities/Player';
 import { MockConnection, MockWorldServer } from './mocks';
+
+// Mock DB to avoid connection attempts
+vi.mock('../src/core/db/index', () => ({
+  db: {
+    select: vi.fn(() => ({
+      from: vi.fn(() => ({
+        where: vi.fn(() => Promise.resolve([])),
+      })),
+    })),
+    insert: vi.fn(() => ({
+      values: vi.fn(() => Promise.resolve()),
+    })),
+  },
+}));
 
 describe('Player', () => {
   let connection: MockConnection;
@@ -21,14 +35,16 @@ describe('Player', () => {
     expect(player.y).toBe(0);
   });
 
-  it('should handle HELLO message', () => {
+  it('should handle HELLO message', async () => {
     const enterCallback = vi.fn();
     player.onHello(enterCallback);
 
     connection.receive([MessageType.HELLO, 'Hero', 0, 0]);
 
     expect(player.name).toBe('Hero');
-    expect(enterCallback).toHaveBeenCalled();
+    await vi.waitFor(() => {
+      expect(enterCallback).toHaveBeenCalled();
+    });
   });
 
   it('should handle MOVE message', () => {

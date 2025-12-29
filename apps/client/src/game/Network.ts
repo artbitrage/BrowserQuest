@@ -1,3 +1,4 @@
+import { type ClientMessage, MessageType } from '@bq/shared';
 import type { Game } from './Game';
 
 export class Network {
@@ -32,13 +33,9 @@ export class Network {
     };
   }
 
-  public send(message: any) {
+  public send(message: ClientMessage) {
     if (this.socket && this.connected) {
-      if (Array.isArray(message)) {
-        this.socket.send(JSON.stringify(message)); // Or custom serialization? server uses JSON.
-      } else {
-        this.socket.send(JSON.stringify(message));
-      }
+      this.socket.send(JSON.stringify(message));
     }
   }
 
@@ -52,18 +49,18 @@ export class Network {
   }
 
   public sendHello(name: string) {
-    this.send([0, name, 0, 0, 0]); // MessageType.HELLO = 0
+    this.send([MessageType.HELLO, name]);
   }
 
   public sendMove(x: number, y: number) {
-    // MessageType.MOVE = 4
-    this.send([4, x, y]);
+    this.send([MessageType.MOVE, x, y]);
   }
 
-  public sendAttack() {
-    // MessageType.ATTACK = 7 (from shared/types enum if I recall, but let's check)
-    // Actually checking types.ts is better.
-    // Based on previous file read MessageType.ATTACK = 7.
-    this.send([7]);
+  public sendAttack(mobId?: string | number) {
+    if (mobId !== undefined) {
+      this.send([MessageType.ATTACK, mobId]);
+    } else {
+      this.send([MessageType.AGGRO]);
+    }
   }
 }

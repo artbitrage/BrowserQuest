@@ -44,7 +44,7 @@ export class WorldServer {
                 if (player.lastCheckpoint) {
                     return player.lastCheckpoint.getRandomPosition();
                 }
-                return this.map.getRandomStartingPosition();
+                return this.map?.getRandomStartingPosition();
             });
             player.onHello(() => {
                 this.enter_callback?.(player);
@@ -176,7 +176,7 @@ export class WorldServer {
         this.regen_callback = callback;
     }
     pushRelevantEntityListTo(player) {
-        if (player && player.group && player.group in this.groups) {
+        if (player?.group && player.group in this.groups) {
             const entities = Object.keys(this.groups[player.group].entities)
                 .filter((id) => id !== player.id.toString())
                 .map((id) => Number.parseInt(id));
@@ -363,7 +363,7 @@ export class WorldServer {
         return this.entities[id];
     }
     broadcastAttacker(character) {
-        if (character && character.group) {
+        if (character?.group) {
             this.pushToAdjacentGroups(character.group, new Messages.Attack(character.id, character.target), character.id);
         }
         this.attack_callback?.(character);
@@ -500,7 +500,7 @@ export class WorldServer {
     }
     removeFromGroups(entity) {
         const oldGroups = [];
-        if (entity && entity.group) {
+        if (entity?.group) {
             const group = this.groups[entity.group];
             if (entity instanceof Player) {
                 group.players = group.players.filter((id) => id !== entity.id);

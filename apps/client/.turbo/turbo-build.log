@@ -1,0 +1,13 @@
+
+> @bq/client@0.1.0 build
+> tsc && vite build
+
+src/game/Game.ts(27,28): error TS2554: Expected 0 arguments, but got 1.
+src/game/Game.ts(28,39): error TS2554: Expected 0 arguments, but got 1.
+npm error Lifecycle script `build` failed with error:
+npm error code 2
+npm error path C:\Users\tt7419\Downloads\GitHub\BrowserQuest\apps\client
+npm error workspace @bq/client@0.1.0
+npm error location C:\Users\tt7419\Downloads\GitHub\BrowserQuest\apps\client
+npm error command failed
+npm error command C:\windows\system32\cmd.exe /d /s /c tsc && vite build

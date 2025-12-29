@@ -1,9 +1,9 @@
 import path from 'node:path';
 import pino from 'pino';
 import { WebSocketServer } from 'ws';
-import { Connection } from './Connection.js';
-import { WorldServer } from './WorldServer.js';
-import { Player } from './player.js';
+import { Connection } from './core/Connection.js';
+import { WorldServer } from './world/WorldServer.js';
+import { Player } from './world/entities/Player.js';
 const logger = pino({
     level: process.env.LOG_LEVEL || 'info',
 });

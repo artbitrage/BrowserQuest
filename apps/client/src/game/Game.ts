@@ -24,8 +24,8 @@ export class Game {
     this.renderer = new Renderer(this);
     this.network = new Network(this);
     this.input = new Input(this);
-    this.map = new GameMap(this);
-    this.entities = new EntityManager(this);
+    this.map = new GameMap();
+    this.entities = new EntityManager();
     Log.info('Game engine initialized');
   }
 
@@ -62,7 +62,7 @@ export class Game {
   }
 
   public connect(name: string) {
-    this.network.connect('ws://localhost:8000', name);
+    this.network.connect('ws://127.0.0.1:8000', name);
   }
 
   public receiveMessage(message: any) {

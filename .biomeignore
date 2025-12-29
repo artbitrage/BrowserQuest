@@ -1,0 +1,6 @@
+node_modules
+dist
+legacy
+*.min.js
+sqlite.db
+sqlite.db-journal

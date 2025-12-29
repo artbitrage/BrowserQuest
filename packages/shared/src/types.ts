@@ -99,7 +99,10 @@ export enum Orientation {
 
 export type EntityType = 'player' | 'mob' | 'weapon' | 'armor' | 'object' | 'npc';
 
-export const EntityKindMap: Record<EntityKind, [string, EntityType]> = {
+export type EntityId = number | string;
+export type SpriteId = string;
+
+export const EntityKindMap = {
   [EntityKind.WARRIOR]: ['warrior', 'player'],
   [EntityKind.RAT]: ['rat', 'mob'],
   [EntityKind.SKELETON]: ['skeleton', 'mob'],
@@ -149,7 +152,7 @@ export const EntityKindMap: Record<EntityKind, [string, EntityType]> = {
   [EntityKind.MORNINGSTAR]: ['morningstar', 'weapon'],
   [EntityKind.AXE]: ['axe', 'weapon'],
   [EntityKind.BLUESWORD]: ['bluesword', 'weapon'],
-};
+} satisfies Record<EntityKind, [string, EntityType]>;
 
 export const RankedWeapons = [
   EntityKind.SWORD1,

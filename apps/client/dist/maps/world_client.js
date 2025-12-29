@@ -1,4 +1,4 @@
-var mapData = {
+const mapData = {
   width: 172,
   height: 314,
   collisions: [

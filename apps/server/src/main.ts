@@ -1,18 +1,25 @@
 import path from 'node:path';
 import pino from 'pino';
 import { WebSocketServer } from 'ws';
-import { Connection } from './Connection.js';
-import { WorldServer } from './WorldServer.js';
-import { Player } from './player.js';
+import { Connection } from './core/Connection.js';
+import { WorldServer } from './world/WorldServer.js';
+import { Player } from './world/entities/Player.js';
 
-const logger = pino({
-  level: process.env.LOG_LEVEL || 'info',
-});
+import { logger } from './core/Log.js';
 
-const PORT = Number.parseInt(process.env.PORT || '8000');
-const MAX_PLAYERS_PER_WORLD = 100;
-const NB_WORLDS = 1;
-const MAP_FILE = path.join(process.cwd(), '../../legacy/server/maps/world_server.json');
+interface ServerConfig {
+  port: number;
+  maxPlayers: number;
+  nbWorlds: number;
+  mapFile: string;
+}
+
+const config = {
+  port: Number.parseInt(process.env.PORT || '8000'),
+  maxPlayers: 100,
+  nbWorlds: 1,
+  mapFile: path.join(process.cwd(), '../../legacy/server/maps/world_server.json'),
+} satisfies ServerConfig;
 
 class GameServer {
   private wss: WebSocketServer;
@@ -21,7 +28,10 @@ class GameServer {
   private connectionCounter = 0;
 
   constructor(port: number) {
-    this.wss = new WebSocketServer({ port });
+    this.wss = new WebSocketServer({
+      port,
+      host: '0.0.0.0'
+    });
 
     this.wss.on('connection', (socket) => {
       const id = `5${Math.floor(Math.random() * 99)}${this.connectionCounter++}`;
@@ -47,9 +57,9 @@ class GameServer {
   }
 
   async start() {
-    for (let i = 0; i < NB_WORLDS; i++) {
-      const world = new WorldServer(`world${i + 1}`, MAX_PLAYERS_PER_WORLD, this);
-      await world.run(MAP_FILE);
+    for (let i = 0; i < config.nbWorlds; i++) {
+      const world = new WorldServer(`world${i + 1}`, config.maxPlayers, this);
+      await world.run(config.mapFile);
       this.worlds.push(world);
     }
   }
@@ -59,7 +69,7 @@ class GameServer {
   }
 }
 
-const server = new GameServer(PORT);
+const server = new GameServer(config.port);
 server.start().catch((err) => {
   logger.error(err, 'Failed to start server');
   process.exit(1);
